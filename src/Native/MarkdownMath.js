@@ -1,29 +1,7 @@
-var _user$project$Native_MarkdownMath = function() {
+var _tazzo$elm_markdown_math$Native_MarkdownMath = function() {
 
 
 // VIRTUAL-DOM WIDGETS
-
-function change(){
-
-    var number = 0;
-		var maths = {}
-
-    var replacer = function(match,p1) {
-        number++;
-        maths[number.toString()] = p1;
-        return "$$" + number + "$$";
-    };
-
-    var replacerMath = function() {
-        number++;
-        return ">>>" + maths[number.toString()] + "<<<";
-    };
-
-    title.innerHTML = string.replace(/\$\$+([\s\S]+?)\$\$+/g, replacer);
-    number = 0;
-    title2.innerHTML = string.replace(/\$\$+([\s\S]+?)\$\$+/g, replacerMath);
-
-}
 
 function toHtml(options, factList, rawMarkdown)
 {
@@ -45,30 +23,34 @@ function render_(model){
   var number = 0;
 	var maths = {}
 
-  var replacer = function(match,p1) {
+  var stripMath = function(match,p1) {
       number++;
       maths[number.toString()] = p1;
       return "$$" + number + "$$";
   };
 
-  var replacerMath = function() {
+  var replaceMath = function() {
       number++;
       return renderToString(maths[number.toString()] );
   };
+
+  //math code regex
+  var regex = /\$\$+([\s\S]+?)\$\$+/g;
+
   //strip math
-  var string = model.markdown.replace(/\$\$+([\s\S]+?)\$\$+/g, replacer);
+  var strip = model.markdown.replace(regex, stripMath);
   //do Markdown
 
-	var html = marked(string, formatOptions(model.options));
-  //do / re-replace math
+	var html = marked(strip, formatOptions(model.options));
+  //replace math
   number = 0;
-  return html.replace(/\$\$+([\s\S]+?)\$\$+/g, replacerMath);
+  return html.replace(regex, replaceMath);
 
 }
 
 function renderToString( expression) {
   var options={};
-  options.displayMode = false; 
+  options.displayMode = false;
   options.errorColor = "#cc0000";
   options.throwOnError = false;
   try {
