@@ -1,6 +1,6 @@
 # MarkdownMath in Elm
 
-This package is for markdown/math parsing and rendering. It is based on the [marked][] and [katex][] projects which focuses on speed.
+This package is for markdown/math parsing and rendering. It is based on the [marked][] and [katex][] projects which focuses on speed. See live demo [here](https://tazzo.github.io/elm-markdown-math-demo/)
 
 [marked]: https://github.com/chjj/marked
 [katex]: https://github.com/Khan/KaTeX
